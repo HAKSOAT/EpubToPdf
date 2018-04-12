@@ -1,2 +1,4 @@
 __pycache__/
-the-phoenix-project-a-novel-about-gene-kim(www.ebook-dl.com).epub
+*.epub
+*.pdf
+*/

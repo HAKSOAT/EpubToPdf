@@ -39,7 +39,7 @@ class GetEngine(object):
 	def get_html(self):
 
 		for file in self.files:
-			if file.endswith(".xhtml"):
+			if file.endswith(".xhtml") or file.endswith(".html"):
 				self.html_files.append(file)
 
 	def get_pdf(self):
@@ -65,7 +65,7 @@ class GetEngine(object):
 			#This traverses the directory passed in as an argument,
 			#returns the current directory, the sub directories and all the files
 			for each in files:
-				if each.endswith(".opf"):
+				if each.endswith(".ncx"):
 					root_dir = root
 					file = os.path.join(root, each)
 					break
@@ -74,10 +74,10 @@ class GetEngine(object):
 
 		xml_tree = bs(xml_content, features = "xml")
 
-		item_tags = xml_tree.package.manifest.findAll("item")
+		item_tags = xml_tree.ncx.navMap.findAll("content")
 
 		#Gets the name of all the documents in order
 		#from the opf file, then saves the file name with its path
 
-		self.files = [root_dir + "/" + file["href"] for file in item_tags]
+		self.files = [root_dir + "/" + file["src"] for file in item_tags]
 
