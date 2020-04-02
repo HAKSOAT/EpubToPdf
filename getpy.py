@@ -1,5 +1,7 @@
 from bs4 import BeautifulSoup as bs
 import os
+import re
+import ntpath
 
 
 class GetEngine(object):
@@ -18,8 +20,6 @@ class GetEngine(object):
 		get_css() --- Which gets the css file names.
 
 		get_images() --- Which gets the image file names.
-
-		file_getter() --- Which gets all the files needed for document from the epub's .opf file.
 
 
 		To create an instance of this object, pass in the name of the directory
@@ -60,24 +60,38 @@ class GetEngine(object):
 				self.image_files.append(file)
 
 	def get_all(self):
-
+		file = None
+		directory_paths = []
 		for root, dirs, files in os.walk(self.directory):
 			#This traverses the directory passed in as an argument,
 			#returns the current directory, the sub directories and all the files
+			directory_paths.append(root)
+			if file:
+				continue
 			for each in files:
-				if each.endswith(".ncx"):
-					root_dir = root
+				if each.endswith(".opf"):
 					file = os.path.join(root, each)
-					break
+					continue
+		if not file:
+			return
 
 		xml_content = open(file, "r").read()
 
 		xml_tree = bs(xml_content, features = "xml")
 
-		item_tags = xml_tree.ncx.navMap.findAll("content")
+		file_names = xml_tree.package.manifest.findAll('item')
 
-		#Gets the name of all the documents in order
-		#from the opf file, then saves the file name with its path
+		# Gets the name of all the documents in order
+		# from the opf file, then saves the file name with its path
+		# The file path in the opf file can't be relied upon
+		# Hence, the need to extract file name and get its path
 
-		self.files = [root_dir + "/" + file["src"] for file in item_tags]
-
+		for file in file_names:
+			file_path_match = re.match(r'.+\.[a-zA-Z]+', file.get('href', ''))
+			if not file_path_match:
+				continue
+			file_name = ntpath.basename(file_path_match.group())
+			for path in directory_paths:
+				filepath = path + '/' + file_name
+				if os.path.exists(filepath):
+					self.files.append(filepath)

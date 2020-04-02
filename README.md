@@ -26,6 +26,8 @@ For Debian/Ubuntu users:
 
 should do the trick.
 
+If you get a `QXcbConnection: Could not connect to display` error, check [this issue](https://github.com/JazzCore/python-pdfkit/issues/82).
+
 
 
 **Usage**
