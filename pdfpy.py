@@ -32,11 +32,13 @@ class PdfEngine(object):
 		for each in self.markup_files:
 
 			# Prevent conversion process from showing terminal updates
-		
+
 			options = {'quiet': ''}
 
 			pdfkit.from_file(each, "{}.pdf".format(self.markup_files.index(each)),
 							 options=options)
+
+		print('--- Sections converted to pdf')
 
 	def combine(self):
 
@@ -50,6 +52,11 @@ class PdfEngine(object):
 
 		merger.write("{}.pdf".format(self.directory))
 
+		print('--- Sections combined together in a single pdf file')
+
+		merger.close()
+
 	def del_pdf(self):
 			for each in self.pdf_files:
 				os.remove(each)
+			print('--- Individual pdf files deleted from directory')
