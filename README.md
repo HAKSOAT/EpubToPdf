@@ -19,10 +19,12 @@ After this, you install the _wkhtmltopdf_ which is a dependency of the _pdfkit_ 
 
 wkhtmltopdf file can be downloaded [here](https://wkhtmltopdf.org/downloads.html)
 
+Make sure to add wkhtlmtopdf as an executable in Windows environment paths.
+
 For Debian/Ubuntu users:
 
 
-```$ sudo apt-get install wkhtmltopdf``` 
+```$ sudo apt-get install wkhtmltopdf```
 
 should do the trick.
 
