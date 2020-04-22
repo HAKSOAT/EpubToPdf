@@ -6,7 +6,9 @@ from pdfpy import PdfEngine
 def process():
 
 	if sys.argv[1].endswith(".epub"):
-		
+
+		print('--- Epub to PDF conversion started')
+
 		epub_file = sys.argv[1]
 		file = FileManager(epub_file)
 		file.epub_to_zip()
@@ -18,7 +20,7 @@ def process():
 		engine.get_pdf()
 		engine.get_css()
 		engine.get_images()
-		pdf = PdfEngine(engine.html_files, engine.css_files, 
+		pdf = PdfEngine(engine.html_files, engine.css_files,
 						engine.pdf_files, file.directory)
 		pdf.convert()
 		pdf.combine()
@@ -26,11 +28,12 @@ def process():
 		file.zip_to_epub()
 		file.del_directory()
 
+		print('--- Epub to PDF conversion successful')
+
 	else:
 
 		print("File is not an epub file")
-	
+
 
 if __name__ == "__main__":
 	process()
-
