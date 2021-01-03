@@ -32,9 +32,7 @@ class PdfEngine(object):
 		for each in self.markup_files:
 
 			# Prevent conversion process from showing terminal updates
-
-			options = {'quiet': ''}
-
+			options = {"enable-local-file-access": None, "quiet": ""}
 			pdfkit.from_file(each, "{}.pdf".format(self.markup_files.index(each)),
 							 options=options)
 
