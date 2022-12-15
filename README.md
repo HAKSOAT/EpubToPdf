@@ -5,7 +5,7 @@ This program converts epub documents to pdf documents.
 
 **Installation**
 
-Simply fork this repository to your machine.
+Clone this repository to your machine.
 
 
 **Requirements**
