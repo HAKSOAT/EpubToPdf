@@ -1,4 +1,4 @@
 beautifulsoup4==4.5.3
 lxml==4.6.3
 pdfkit==0.6.1
-PyPDF2==1.26.0
+PyPDF2==1.27.9
