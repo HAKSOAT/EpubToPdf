@@ -1,3 +1,6 @@
+import collections.abc
+collections.Callable=collections.abc.Callable
+
 from bs4 import BeautifulSoup as bs
 import os
 import re
